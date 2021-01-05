@@ -20,15 +20,21 @@
 set_time_limit(600); #设置执行时间限时
 date_default_timezone_set('PRC');
 header('Access-Control-Allow-Origin:*');
-header('Access-Control-Allow-Methods: POST');
+//header('Access-Control-Allow-Methods: POST');
 header("Content-Type:text/json; charset=utf-8");
 error_reporting(E_ERROR);
 
 define('site', dirname( __FILE__ )."/router/");
 
 $url = $_POST['url'];
-
-if( $_POST['user'] == 'wizosx' ){
+if( $url == "" ){
+	$url = $_GET['url'];
+}
+$user = $_POST['user'];
+if( $user == "" ){
+	$user = $_GET['user'];
+}
+if( $user == 'wizosx' ){
     define('is_admin', true);
 }else{
     define('is_admin', false);
