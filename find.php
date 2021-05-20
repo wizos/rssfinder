@@ -15,8 +15,11 @@
  *   2018-10-14, V1.4, 适应RSS+：改传递结构为json
  *   2018-10-15, V1.4.1, 适应RSS+：优化传递结构，增加title等字段
  *   2018-10-16, V1.4.2, 适应RSS+：改get为post
+ *   2020-01-05, V1.4.3, 支持get请求方式
+ *   2020-02-05, V1.4.4, 支持url参数用base64编码
  */
 
+include_once "net.php";
 set_time_limit(600); #设置执行时间限时
 date_default_timezone_set('PRC');
 header('Access-Control-Allow-Origin:*');
@@ -40,6 +43,10 @@ if( $user == 'wizosx' ){
     define('is_admin', false);
 }
 
+if(stripos($url, "http://") === false && stripos($url, "https://") === false){
+	$url = base64_decode($url);
+}
+	
 $filepath = getFilePath ($url);
 include($filepath);
 $findResult = exe($url);
